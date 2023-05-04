@@ -13,7 +13,9 @@ const axios = require('axios');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors({ origin: `${FRONT_URL}${FRONT_PORT}` }));
+app.use(cors({ 
+    origin: `${FRONT_URL}${FRONT_PORT}` 
+}));
 
 app.get('/worklog/:from/:to', getWorklogs);
 app.post('/worklog', addWorklog);
