@@ -18,6 +18,7 @@ app.use(cors({
     origin: `${FRONT_URL}${FRONT_PORT}` 
 }));
 
+app.get('/', (req, res) => res.send('app corriendo...'));
 app.get('/worklog/:from/:to', getWorklogs);
 app.post('/worklog', addWorklog);
 app.put('/worklog', updateWorklog);
