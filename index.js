@@ -1,7 +1,7 @@
 const API_JIRA_URL = `https://fktech.atlassian.net/rest/api/2/`;
 
 const FRONT_URL = process.env.FRONT_URL || 'http://localhost:5500';
-const PORT = process.env.PORT || '3000';
+const PORT = process.env.PORT || '3010';
 
 const express = require('express');
 const bodyParser = require('body-parser');
