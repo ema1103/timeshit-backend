@@ -2,7 +2,7 @@ const API_JIRA_URL = `https://fktech.atlassian.net/rest/api/2/`;
 /* LOCAL */
 /* const FRONT_URL = 'http://localhost';
 const FRONT_PORT = ':5500'; */
-const FRONT_URL = 'https://timeshit-compass.netlify.app/';
+const FRONT_URL = 'https://timeshit-compass.netlify.app';
 const FRONT_PORT = '';
 
 const express = require('express');
