@@ -1,9 +1,6 @@
 const API_JIRA_URL = `https://fktech.atlassian.net/rest/api/2/`;
-/* LOCAL */
-/* const FRONT_URL = 'http://localhost';
-const FRONT_PORT = ':5500'; */
-const FRONT_URL = 'https://timeshit-compass.netlify.app';
-const FRONT_PORT = '';
+
+const FRONT_URL = process.env.FRONT_URL || 'http://localhost:5500';
 const PORT = process.env.PORT || '3000';
 
 const express = require('express');
@@ -15,7 +12,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors({ 
-    origin: `${FRONT_URL}${FRONT_PORT}` 
+    origin: `${FRONT_URL}` 
 }));
 
 app.get('/', (req, res) => res.send('app corriendo...'));
