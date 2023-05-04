@@ -4,6 +4,7 @@ const API_JIRA_URL = `https://fktech.atlassian.net/rest/api/2/`;
 const FRONT_PORT = ':5500'; */
 const FRONT_URL = 'https://timeshit-compass.netlify.app';
 const FRONT_PORT = '';
+const PORT = process.env.PORT || '3000';
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -22,7 +23,7 @@ app.post('/worklog', addWorklog);
 app.put('/worklog', updateWorklog);
 app.delete('/worklog', deleteWorklog);
 
-app.listen(3000);
+app.listen(PORT);
 
 function getWorklogs(req, res) {
     const { from: startDate, to: endDate } = req.params;
