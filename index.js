@@ -1,6 +1,9 @@
 const API_JIRA_URL = `https://fktech.atlassian.net/rest/api/2/`;
-const FRONT_URL = 'http://localhost';
-const FRONT_PORT = '5500';
+/* LOCAL */
+/* const FRONT_URL = 'http://localhost';
+const FRONT_PORT = ':5500'; */
+const FRONT_URL = '190.49.76.105';
+const FRONT_PORT = ':5500';
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -10,7 +13,7 @@ const axios = require('axios');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors({ origin: `${FRONT_URL}:${FRONT_PORT}` }));
+app.use(cors({ origin: `${FRONT_URL}${FRONT_PORT}` }));
 
 app.get('/worklog/:from/:to', getWorklogs);
 app.post('/worklog', addWorklog);
