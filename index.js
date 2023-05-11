@@ -42,6 +42,7 @@ function getWorklogs(req, res) {
         })
         .catch(error => {
             console.error(error);
+            res.status(error.response.status).send('No se pueden obtener los datos');
         });
 }
 
@@ -150,6 +151,7 @@ function mapIssuesToWorklog(data, req, res) {
         })
         .catch(error => {
             console.error(error);
+            res.status(400).send('Error al obtener tareas del usuario');
         });
 }
 
