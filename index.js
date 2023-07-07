@@ -1,3 +1,6 @@
+const { pool } = require('./db');
+const { body, validationResult } = require('express-validator');
+
 const API_JIRA_URL = `https://fktech.atlassian.net/rest/api/2/`;
 
 const FRONT_URL = process.env.FRONT_URL || 'http://localhost:5500';
@@ -15,11 +18,20 @@ app.use(cors({
     origin: `${FRONT_URL}` 
 }));
 
+//validaciones
+const validateSuggestionData = [
+    body('user').isEmail().normalizeEmail(),
+    body('comment').notEmpty().trim().escape(),
+];
+
 app.get('/', (req, res) => res.send('app corriendo...'));
 app.get('/worklog/:from/:to', getWorklogs);
 app.post('/worklog', addWorklog);
 app.put('/worklog', updateWorklog);
 app.delete('/worklog', deleteWorklog);
+
+app.get('/suggestions', getAllSuggestions);
+app.post('/suggestions', validateSuggestionData, addSuggestion);
 
 app.listen(PORT);
 
@@ -221,4 +233,34 @@ function deleteWorklog(req, res) {
             console.error(error);
             res.json({error});
         });
+}
+
+async function getAllSuggestions(req, res) {
+    try {
+        const result = await pool.query('SELECT * FROM sugerencia');
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error al ejecutar la consulta:', error);
+        res.status(500).json({ msg: 'Error al ejecutar la consulta', error });
+    }
+}
+
+async function addSuggestion(req, res) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+    
+        const { user, comment } = req.body;
+    
+        const query = `INSERT INTO sugerencia ("user", comment) VALUES ($1, $2)`;
+        const values = [ user, comment ];
+    
+        await pool.query(query, values);
+        res.json({ msg: 'inserción exitosa' });
+    } catch (error) {
+        console.error('Error al realizar la inserción:', error);
+        res.status(500).json({ error: 'Error al realizar la inserción' });
+    }
 }
